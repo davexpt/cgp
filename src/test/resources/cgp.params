@@ -61,7 +61,7 @@ pop.subpop.0.species.num-nodes = 10
 pop.subpop.0.species.num-inputs = 2
 
 # number of output nodes in your CGP.  Your problem class extracts these outputs from the CGPInterpreter.
-pop.subpop.0.species.num-outputs = 1  
+pop.subpop.0.species.num-outputs = 2  
 
 
 #================================================================================

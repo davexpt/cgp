@@ -9,8 +9,8 @@ import ec.vector.VectorIndividual;
 
 public class CGPIndividual extends FloatVectorIndividual {
 	private static final long serialVersionUID = 1L;
-
 	public static final String P_CGP_INDIVIDUAL = "cgp-individual";
+	
 
 	// public float[] genome;
 
@@ -101,6 +101,7 @@ public class CGPIndividual extends FloatVectorIndividual {
 	@Override
 	public int hashCode() {
 		int hash = this.getClass().hashCode();
+		
 
 		hash = (hash << 1 | hash >>> 31);
 		for (int x = 0; x < genome.length; x++) {

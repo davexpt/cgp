@@ -59,7 +59,7 @@ public class CGPSteppableInterpreter implements
 			currentNodeStacks = new ArrayList<>(species.numOutputs);
 			execStacks = new ArrayList<>(species.numOutputs);
 
-			for (int i = 0; i < nodeStacks.size(); i++) {
+			for (int i = 0; i < species.numOutputs; i++) {
 				currentNodeStacks.add((Stack<Integer>) nodeStacks.get(i)
 						.clone());
 				execStacks.add(new Stack<>());
@@ -70,7 +70,7 @@ public class CGPSteppableInterpreter implements
 		finished = true;
 		for (int i = 0; i < currentNodeStacks.size(); i++) {
 			Stack<Integer> currentNodeStack = currentNodeStacks.get(i);
-			Stack<Object> execStack = execStacks.get(0);
+			Stack<Object> execStack = execStacks.get(i);
 
 			// we have something to execute
 			if (!currentNodeStack.isEmpty()) {
@@ -181,7 +181,7 @@ public class CGPSteppableInterpreter implements
 	public Object[] getOutput() {
 		if (finished) {
 			Object[] output = new Object[species.numOutputs];
-			for (int i = 0; i < output.length; i++) {
+			for (int i = 0; i < species.numOutputs; i++) {
 				output[i] = execStacks.get(i).pop();
 			}
 			return output;

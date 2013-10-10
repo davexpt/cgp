@@ -7,7 +7,7 @@ import ec.vector.*;
 import ec.cgp.Evaluator;
 import ec.cgp.FitnessCGP;
 import ec.cgp.eval.CGPSteppableInterpreter;
-import ec.cgp.eval.ProblemCGP;
+import ec.cgp.eval.CGPProblem;
 import ec.cgp.genome.CGPIndividual;
 import ec.cgp.representation.CGPVectorIndividual;
 import ec.cgp.representation.CGPVectorSpecies;
@@ -27,7 +27,7 @@ import org.apache.commons.math3.util.FastMath;
  * 
  *         adapted from the CGP library of David Oranchak
  */
-public class Regression extends ProblemCGP {
+public class Regression extends CGPProblem {
 	private static final long serialVersionUID = 1L;
 
 	/** 50 randomly generated test points used for fitness evaluation */
@@ -51,10 +51,10 @@ public class Regression extends ProblemCGP {
 
 		CGPIndividual individual = (CGPIndividual) ind;
 
-		double diff = 0f;
-
 		Double[] inputs = new Double[3];
 		double fn = 0f;
+		double diff1 = 0.0;
+		double diff2 = 0.0;
 
 		for (int i = 0; i < testPoints.length; i++) {
 			inputs[0] = testPoints[i]; // one of the randomly-generated
@@ -77,19 +77,22 @@ public class Regression extends ProblemCGP {
 			fn = polynomial2(testPoints[i]);
 
 			/* compute error */
-			diff += FastMath.abs((Double) outputs[0] - fn);
+			diff1 += FastMath.abs((Double) outputs[0] - fn);
+			state.output.message("Output 0: " + outputs[0]);
+			diff2 += FastMath.abs((Double) outputs[1] - fn);
+			state.output.message("Output 1: " + outputs[1]);
 			// state.output.message("current input: " + inputs[0]);
 			// state.output.message("current output: " + outputs[0]);
 			// state.output.message("real value: " + fn);
 		}
-		((FitnessCGP) individual.fitness).setFitness(state, (float) diff,
-				diff <= 0.01); // stop
+		((FitnessCGP) individual.fitness).setFitness(state, (float) diff1,
+				diff1 <= 0.01); // stop
 
 		individual.evaluated = true;
 	}
 
 	public static double polynomial2(double x) {
-		return x * x - 2 * x + 1;
+		return x * x - 2 * x + 1 + 2;
 	}
 
 	// load something from the parameters if necessary
