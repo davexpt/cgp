@@ -20,7 +20,7 @@ public class SinFn extends NumericFunction {
 		ArrayList<Class<? extends Object>> types = new ArrayList<Class<? extends Object>>(
 				arity());
 
-		types.set(0, Double.class);
+		types.add(0, Double.class);
 
 		return types;
 	}
